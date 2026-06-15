@@ -18,11 +18,11 @@ mri_reconstruction/guided-diffusion/
 mri_reconstruction/InverseBench/
 mri_reconstruction/paper/
 
-mri_reconstruction/paper/PnP-MonteCarlo/results
-mri_reconstruction/paper/PnP-MonteCarlo/job_outputs
-mri_reconstruction/paper/PnP-MonteCarlo/job_scripts
-mri_reconstruction/paper/PnP-MonteCarlo/run_optuna.py
-mri_reconstruction/paper/PnP-MonteCarlo/pmc/algorithms/pmcred_flow.py
+mri_reconstruction/PnP-MonteCarlo/results
+mri_reconstruction/PnP-MonteCarlo/job_outputs
+mri_reconstruction/PnP-MonteCarlo/job_scripts
+mri_reconstruction/PnP-MonteCarlo/run_optuna.py
+mri_reconstruction/PnP-MonteCarlo/pmc/algorithms/pmcred_flow.py
 
 ct_reconstruction/
 
