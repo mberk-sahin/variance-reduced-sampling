@@ -1,0 +1,42 @@
+_BASE_: /scratch/gautschi/sahinm/LangevinMonteCarlo/mri_reconstruction/PnP-MonteCarlo/configs/radial_mri/base_unet.yaml
+
+exp_name: acc8_zo/sgd
+
+model:
+  name: PMCRED
+  estimator:
+    name: SGD
+    batch_size: 32
+  forward_model:
+    num_lines: 32
+    num_coils: 96
+  score_fn:
+    network_mode: sigma
+    use_embed: True
+  coeff:
+    name: GeometricAnnealingCoeffModule
+    decay_rate: 0.99
+    min_sigma: 1.0e-2
+  gamma: 5.0e-6
+  alpha: 1.0e+4
+  sigma: 348
+  mem_logger:
+    name: CUDAMemoryLogger
+    interval: 5
+    enabled: True
+
+inference:
+  is_wandb_logger: False
+  sample_args:
+    tmax: 5
+    initialization: rand
+  inference_args:
+    max_num_batches: 5
+    n_samples: 1
+
+callbacks:
+  scalarcallback:
+    name: LocalScalarCallbackModule
+    vis_freq: 5
+  imagecallback:
+    name: LocalGrayImageCallbackModule

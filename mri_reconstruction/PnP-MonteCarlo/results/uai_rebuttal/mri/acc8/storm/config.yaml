@@ -1,0 +1,92 @@
+accelerator: gpu
+callbacks:
+  imagecallback:
+    name: LocalGrayImageCallbackModule
+  scalarcallback:
+    name: LocalScalarCallbackModule
+    vis_freq: 5
+checkpoint:
+  init_score_fn_dir: /scratch/gilbreth/sahinm/BrainFastMRI/score_ckpt/fastmri_brain.pth
+  load_ema: True
+  score_fn_trainability: False
+dataloader:
+  batch_size: 1
+  shuffle: False
+dataset:
+  denoise: False
+  finetune: False
+  name: FastMRIBrainData
+exp_dir: ./results/uai_rebuttal/mri/acc8/storm
+exp_name: uai_rebuttal/mri/acc8/storm
+inference:
+  inference_args:
+    max_num_batches: 100
+    n_samples: 1
+    start_batch_idx: 0
+  is_wandb_logger: False
+  sample_args:
+    initialization: rand
+    tmax: 5000
+logger:
+  dir: ./results/uai_rebuttal/mri/acc8/storm
+  entity: TBD
+  name: uai_rebuttal/mri/acc8/storm
+  project: TBD
+model:
+  alpha: 10000.0
+  coeff:
+    decay_rate: 0.99
+    min_sigma: 0.01
+    name: GeometricAnnealingCoeffModule
+  estimator:
+    batch_size: 32
+    beta: 0.1548
+    mini_batch_size: None
+    mu: 1e-05
+    name: STORM
+    noise_type: coil
+    std_noise_grad: TBD
+  forward_model:
+    coil_nzz: 1
+    coil_radius: 1.5
+    input_snr: 40
+    name: MRIRadialParallel
+    num_coils: 96
+    num_lines: 32
+    shape: [256, 256]
+    std_coil_gain: None
+    var: 5e-05
+  gamma: 1.830236e-05
+  mem_logger:
+    enabled: True
+    interval: 5
+    name: CUDAMemoryLogger
+  name: PMCRED
+  score_fn:
+    attention_resolutions: [16, 8]
+    channel_mult: [1, 1, 2, 2, 4, 4]
+    conv_resample: True
+    dims: 2
+    dropout: 0
+    image_size: 256
+    in_channels: 1
+    model_channels: 128
+    name: UNetModel
+    network_mode: sigma
+    num_classes: None
+    num_head_channels: 64
+    num_heads: 1
+    num_heads_upsample: -1
+    num_res_blocks: 1
+    out_channels: 1
+    resblock_updown: True
+    use_checkpoint: False
+    use_embed: True
+    use_fp16: False
+    use_new_attention_order: False
+    use_scale_shift_norm: True
+  sigma: 348
+  transform:
+    name: Identity
+procedure:
+  name: DatasetInference
